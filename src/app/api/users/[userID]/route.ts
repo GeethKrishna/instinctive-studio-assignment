@@ -1,15 +1,11 @@
-// app/api/users/[userId]/route.ts
 import { prisma } from '@/lib/prisma'
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET(
-  request: NextRequest,
-  context: { params: { userID: string } }
-) {
-  const { userID } = context.params
+export async function GET(request: NextRequest, { params }: { params: { userID: string } }) {
+  const { userID } = params
 
   if (!userID) {
-    return new Response('User ID is required', { status: 400 })
+    return new NextResponse('User ID is required', { status: 400 })
   }
 
   try {
@@ -18,12 +14,12 @@ export async function GET(
     })
 
     if (!user) {
-      return new Response('User not found', { status: 404 })
+      return new NextResponse('User not found', { status: 404 })
     }
 
-    return Response.json(user)
+    return NextResponse.json(user)
   } catch (error) {
     console.error('Error fetching user:', error)
-    return new Response('Internal Server Error', { status: 500 })
+    return new NextResponse('Internal Server Error', { status: 500 })
   }
 }
