@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  firstName String?
+  lastName  String?
+  avatar    String?
+  theme     Theme    @default(light)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Student {
+  id          String      @id @default(cuid())
+  name        String
+  email       String      @unique
+  cohort      String
+  dateJoined  DateTime    @default(now())
+  lastLogin   DateTime?   @default(now())
+  status      StudentStatus
+  courses     Course[]    @relation("StudentCourses")
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("students")
+}
+
+model Course {
+  id          String    @id @default(cuid())
+  name        String
+  code        String    @unique
+  description String?
+  students    Student[] @relation("StudentCourses")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  avatar      String?
+
+  @@map("courses")
+}
+
+enum StudentStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  GRADUATED
+}
+
+enum Theme {
+  light
+  dark
+}
