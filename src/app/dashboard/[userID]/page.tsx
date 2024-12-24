@@ -18,7 +18,8 @@ export default function Home() {
     const [sideBarOption, setSideBarOption] = useState<string>("Students");
 
     useEffect(() => {
-      fetchUser(userID)
+      if(userID) fetchUser(userID);
+      else fetchUser("1");
     }, [userID, fetchUser])
 
     if (isLoading) {

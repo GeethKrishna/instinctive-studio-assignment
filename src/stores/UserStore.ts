@@ -15,7 +15,7 @@ interface UserState {
   user: UserProfile | null
   isLoading: boolean
   error: string | null
-  fetchUser: (userId: string) => Promise<void>
+  fetchUser: (userId: string | string[]) => Promise<void>
   clearError: () => void
 }
 
@@ -24,7 +24,7 @@ const useUserStore = create<UserState>((set) => ({
   isLoading: false,
   error: null,
 
-  fetchUser: async (userId: string) => {
+  fetchUser: async (userId: string | string[]) => {
     try {
       set({ isLoading: true, error: null })
       
