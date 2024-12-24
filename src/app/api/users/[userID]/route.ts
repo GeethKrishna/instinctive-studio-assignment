@@ -1,8 +1,15 @@
 import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET(request: NextRequest, { params }: { params: { userID: string } }) {
-  const { userID } = params
+type Props = {
+  params: { userID: string }
+}
+
+export async function GET(
+  request: NextRequest,
+  context: Props
+) {
+  const { userID } = context.params
 
   if (!userID) {
     return new NextResponse('User ID is required', { status: 400 })
