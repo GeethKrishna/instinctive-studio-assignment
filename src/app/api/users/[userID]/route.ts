@@ -1,11 +1,17 @@
 import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 
+type Props = {
+  params: {
+    userID: string
+  }
+}
+
 export async function GET(
   request: NextRequest,
-  { params }: { params: { userID: string } }
-) {
-  const userID = params.userID
+  { params } : Props
+): Promise<NextResponse> {
+  const {userID} = await params;
 
   if (!userID) {
     return new NextResponse('User ID is required', { status: 400 })
