@@ -29,7 +29,7 @@ const useUserStore = create<UserState>((set) => ({
       set({ isLoading: true, error: null })
       
       // Make an API call instead of using Prisma directly
-      const response = await fetch(`/api/users/${userId}`)
+      const response = await fetch(`/api/users?userID=${userId}`)
       if (!response.ok) {
         throw new Error('Failed to fetch user')
       }
