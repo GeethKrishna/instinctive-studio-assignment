@@ -12,9 +12,12 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'via.placeholder.com',
         pathname: '/**',
+      },{
+        protocol: 'https',
+        hostname: 'ik.imagekit.io',
+        pathname: '/**',
       }
     ],
-    domains: ['via.placeholder.com','drive.google.com',"ik.imagekit.io"], // Add this line
   },
 };
 
